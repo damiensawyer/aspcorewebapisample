@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using NSwag.AspNetCore;
 
 namespace testapi
 {
@@ -33,6 +35,15 @@ namespace testapi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwaggerUi(typeof(Startup).Assembly, settings =>
+            {
+                // configure settings here
+                // https://github.com/RSuter/NSwag/wiki/Middlewares
+                //The default routes to access the Swagger specification or Swagger UI:
+
+                //Swagger JSON: http://yourserver/swagger/v1/swagger.json
+                //Swagger UI: http://yourserver/swagger
+            });
 
             app.UseMvc();
         }

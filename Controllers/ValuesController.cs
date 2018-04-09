@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace testapi.Controllers
 {
@@ -11,10 +13,20 @@ namespace testapi.Controllers
     {
 
         [HttpGet("/indate/{dob:datetime}")] 
-        public DateTime PassInDate(DateTime dob)
+        [HttpGet("/indate")] 
+        public DateTime PassInDate(DateTime dob) => dob;
+
+        [HttpGet("/indatereturnutc/{dob:datetime}")]
+        [HttpGet("/indatereturnutc")]
+        public JsonResult PassInDateReturnUTC(DateTime dob)
         {
-            return dob;
+            return Json(dob, new JsonSerializerSettings
+            {
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc
+            });
         }
+
+
 
         // GET api/values
         [HttpGet]
